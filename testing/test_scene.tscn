@@ -1,0 +1,59 @@
+[gd_scene load_steps=4 format=3 uid="uid://coa1fluela5uf"]
+
+[ext_resource type="Script" uid="uid://be2wm1wtrees7" path="res://testing/test_scene.gd" id="1_gfo2m"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rc4ay"]
+albedo_color = Color(1, 0, 1, 1)
+
+[sub_resource type="Environment" id="Environment_rc4ay"]
+background_mode = 1
+background_color = Color(0.176419, 0.176419, 0.176419, 1)
+glow_enabled = true
+
+[node name="TestScene" type="Node3D"]
+script = ExtResource("1_gfo2m")
+
+[node name="Floor" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -40, 0)
+use_collision = true
+collision_layer = 3
+collision_mask = 15
+size = Vector3(300, 85, 250)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(3.45288, 0, 0, 0, 1, 0, 0, 0, 8.75515, -119.775, 31.5373, 0)
+material_override = SubResource("StandardMaterial3D_rc4ay")
+use_collision = true
+collision_layer = 16
+collision_mask = 15
+size = Vector3(1, 100, 1)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(3.45288, 0, 0, 0, 1, 0, 0, 0, 8.75515, 77.8405, 31.5373, 0)
+material_override = SubResource("StandardMaterial3D_rc4ay")
+use_collision = true
+collision_layer = 16
+collision_mask = 15
+size = Vector3(1, 100, 1)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(3.45288, 0, 0, 0, 1, 0, 0, 0, 8.75515, -65.849, 138.048, 0)
+material_override = SubResource("StandardMaterial3D_rc4ay")
+use_collision = true
+collision_layer = 16
+collision_mask = 15
+size = Vector3(1, 150, 1)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="."]
+transform = Transform3D(3.45288, 0, 0, 0, 1, 0, 0, 0, 8.75515, 1.36771, 55.2474, 0)
+material_override = SubResource("StandardMaterial3D_rc4ay")
+use_collision = true
+collision_layer = 16
+collision_mask = 15
+size = Vector3(1, 35, 1)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.0495853, 0.483817, -0.873763, -0.0274121, 0.875169, 0.48304, 0.998394, 0, 0.0566579, -12.935, 7.67766, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_rc4ay")

@@ -1,0 +1,55 @@
+[gd_scene load_steps=10 format=3 uid="uid://di7i8wptt4gco"]
+
+[sub_resource type="Gradient" id="Gradient_lbujt"]
+offsets = PackedFloat32Array(0.0276243, 1)
+colors = PackedColorArray(1, 0, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_tob6o"]
+gradient = SubResource("Gradient_lbujt")
+
+[sub_resource type="Curve" id="Curve_lbujt"]
+_limits = [-10.0, 10.0, 0.0, 1.0]
+_data = [Vector2(0.0193237, 10), 0.0, 0.0, 0, 0, Vector2(0.198068, -10), 0.0, 0.0, 0, 0, Vector2(0.400966, 9.55056), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_tob6o"]
+_limits = [-10.0, 10.0, 0.0, 1.0]
+_data = [Vector2(0, 0.47191), 0.0, 0.0, 0, 0, Vector2(0.135266, 6.4045), -53.1621, -53.1621, 0, 0, Vector2(0.323671, -4.1573), 0.0, 0.0, 0, 0, Vector2(0.507246, 3.03371), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_tob6o"]
+curve_x = SubResource("Curve_lbujt")
+curve_y = SubResource("Curve_tob6o")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lbujt"]
+emission_shape = 3
+emission_box_extents = Vector3(100, 30, 2)
+spread = 0.0
+directional_velocity_min = 4.99998
+directional_velocity_max = 9.99998
+directional_velocity_curve = SubResource("CurveXYZTexture_tob6o")
+color_ramp = SubResource("GradientTexture1D_tob6o")
+
+[sub_resource type="Curve" id="Curve_mxjp4"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.481172, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lbujt"]
+shading_mode = 0
+use_particle_trails = true
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_tob6o"]
+material = SubResource("StandardMaterial3D_lbujt")
+size = 2.0
+sections = 12
+section_length = 0.1
+section_segments = 10
+curve = SubResource("Curve_mxjp4")
+
+[node name="CartoonWind" type="GPUParticles3D"]
+amount = 5
+lifetime = 4.0
+trail_enabled = true
+trail_lifetime = 0.9
+process_material = SubResource("ParticleProcessMaterial_lbujt")
+draw_pass_1 = SubResource("RibbonTrailMesh_tob6o")

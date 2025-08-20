@@ -1,0 +1,27 @@
+[gd_scene load_steps=7 format=3 uid="uid://c51aijfeu1jc6"]
+
+[ext_resource type="Texture2D" uid="uid://bhuedhiqh13dg" path="res://assets/icon.svg" id="1_amove"]
+[ext_resource type="Shader" uid="uid://cjhlrd823ql7x" path="res://vfx/wind_gust_visual.gdshader" id="1_ma8a8"]
+[ext_resource type="Script" uid="uid://xf7qgs5uf5fw" path="res://vfx/wind_gust_visual.gd" id="3_14do3"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_14do3"]
+frequency = 0.0084
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_14do3"]
+seamless = true
+noise = SubResource("FastNoiseLite_14do3")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_14do3"]
+render_priority = 0
+shader = ExtResource("1_ma8a8")
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_14do3")
+shader_parameter/wind_dir = -1.0
+
+[node name="WindGustVisual" type="Sprite3D"]
+transform = Transform3D(20, 0, 0, 0, 10, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_14do3")
+texture = ExtResource("1_amove")
+script = ExtResource("3_14do3")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

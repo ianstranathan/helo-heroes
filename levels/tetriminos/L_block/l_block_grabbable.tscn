@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://d3k8ah1wkt5cl"]
+
+[ext_resource type="PackedScene" uid="uid://baj7x88mtdyx3" path="res://levels/tetriminos/L_block/l_block_skin.tscn" id="1_ixgu1"]
+[ext_resource type="Script" uid="uid://cwe88i8rgq6k5" path="res://grabbable/grabbable.gd" id="1_trmub"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ixgu1"]
+size = Vector3(1, 3, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_trmub"]
+
+[node name="LBlockGrabbable" type="RigidBody3D"]
+script = ExtResource("1_trmub")
+
+[node name="L-Block" parent="." instance=ExtResource("1_ixgu1")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.5, 0)
+shape = SubResource("BoxShape3D_ixgu1")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, 0)
+shape = SubResource("BoxShape3D_trmub")

@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://baj7x88mtdyx3"]
+
+[ext_resource type="Material" uid="uid://35dobgc60f1v" path="res://levels/tetriminos/L_block/l-block-mat.tres" id="1_cnxvq"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_nawp1"]
+size = Vector3(1, 3, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_avj60"]
+
+[node name="L-Block" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.5, 0)
+material_override = ExtResource("1_cnxvq")
+mesh = SubResource("BoxMesh_nawp1")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, 0)
+material_override = ExtResource("1_cnxvq")
+mesh = SubResource("BoxMesh_avj60")

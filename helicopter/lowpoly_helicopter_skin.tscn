@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://c5n6ndx6jgpdw"]
+
+[ext_resource type="PackedScene" uid="uid://xqatg7ng5la" path="res://assets/helicopter/Lowpoly_Helicopter.fbx" id="1_qv3qg"]
+
+[node name="Lowpoly_Helicopter" instance=ExtResource("1_qv3qg")]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." index="3"]

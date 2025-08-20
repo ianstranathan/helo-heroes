@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://bh868y0q4wrtm"]
+
+[ext_resource type="PackedScene" uid="uid://lasrghor31uv" path="res://levels/tetriminos/T_block/t_block_skin.tscn" id="1_wcct3"]
+[ext_resource type="Script" uid="uid://cwe88i8rgq6k5" path="res://grabbable/grabbable.gd" id="1_wpcqk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wcct3"]
+size = Vector3(3, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ulygy"]
+
+[node name="TBlockGrabbable" type="RigidBody3D"]
+script = ExtResource("1_wpcqk")
+
+[node name="t block" parent="." instance=ExtResource("1_wcct3")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_wcct3")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("BoxShape3D_ulygy")

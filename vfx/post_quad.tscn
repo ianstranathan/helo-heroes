@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://ci2d0x74psc7x"]
+
+[ext_resource type="Shader" uid="uid://bl3fmp2u0natk" path="res://vfx/wind_gust_screen_wide.gdshader" id="1_6c70i"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_272bh"]
+frequency = 0.0071
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_272bh"]
+seamless = true
+noise = SubResource("FastNoiseLite_272bh")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5vw27"]
+render_priority = 0
+shader = ExtResource("1_6c70i")
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_272bh")
+shader_parameter/wind_dir = -1.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_kek77"]
+flip_faces = true
+size = Vector2(2, 2)
+
+[node name="PostQuad" type="MeshInstance3D"]
+visible = false
+material_override = SubResource("ShaderMaterial_5vw27")
+mesh = SubResource("QuadMesh_kek77")

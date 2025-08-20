@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3lge4en2rbl2"]
+
+[ext_resource type="Script" uid="uid://bl2p6v3f03n0c" path="res://bob_manager/bob_manager.gd" id="1_2onux"]
+
+[node name="BobManager" type="Node3D"]
+script = ExtResource("1_2onux")

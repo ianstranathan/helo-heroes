@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://q5pkxeoa0b8s"]
+
+[ext_resource type="PackedScene" uid="uid://bai68jvchskgq" path="res://assets/keith/tetriminos/s block.fbx" id="1_fmrr4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fs3ju"]
+albedo_color = Color(0, 1, 0, 1)
+
+[node name="s block" instance=ExtResource("1_fmrr4")]
+
+[node name="Cube_003" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_fs3ju")

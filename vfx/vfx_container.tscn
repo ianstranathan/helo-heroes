@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0wm1y1e8ij6h"]
+
+[ext_resource type="Script" uid="uid://c8vj72fvpyog5" path="res://vfx/vfx_container.gd" id="1_ts3je"]
+
+[node name="VFX_container" type="Node3D"]
+script = ExtResource("1_ts3je")
+
+[node name="Timer" type="Timer" parent="."]

@@ -1,0 +1,53 @@
+[gd_scene load_steps=10 format=3 uid="uid://g3j112hq6sgh"]
+
+[ext_resource type="Script" uid="uid://bgk2av6g077o5" path="res://main.gd" id="1_h2yge"]
+[ext_resource type="Script" uid="uid://dsu77ll5r4wjr" path="res://camera/cam.gd" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://bo8ag4kbvndyg" path="res://helicopter/helicopter.tscn" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://coa1fluela5uf" path="res://testing/test_scene.tscn" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://bbdgivfjk7vb6" path="res://UI/HUD.tscn" id="6_7mycd"]
+[ext_resource type="PackedScene" uid="uid://di7i8wptt4gco" path="res://particle_effects/cartoon_wind/cartoon_wind.tscn" id="7_272bh"]
+[ext_resource type="PackedScene" uid="uid://d3lge4en2rbl2" path="res://bob_manager/bob_manager.tscn" id="8_5vw27"]
+[ext_resource type="Script" uid="uid://bulsribcnb6bv" path="res://environmentals/environmentals.gd" id="8_kek77"]
+[ext_resource type="Script" uid="uid://cl511xqqkcdon" path="res://vfx/vfx_manager.gd" id="9_kek77"]
+
+[node name="main" type="Node"]
+script = ExtResource("1_h2yge")
+
+[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("target_reference")]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 28.2436, 26.7166)
+script = ExtResource("1_ig7tw")
+target_reference = NodePath("../Helicopter")
+shake_amplitude = 2.5
+
+[node name="ShakeTimer" type="Timer" parent="Camera3D"]
+wait_time = 0.2
+one_shot = true
+
+[node name="Helicopter" parent="." instance=ExtResource("2_0xm2m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.9822, 43.7456, -1.68286)
+collision_mask = 17
+tether_change_coefficient = 10.0
+
+[node name="TestScene" parent="." instance=ExtResource("4_1bvp3")]
+number_of_tetriminos = 100
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Hud" parent="CanvasLayer" instance=ExtResource("6_7mycd")]
+
+[node name="environmentals" type="Node" parent="."]
+script = ExtResource("8_kek77")
+wind = true
+wind_speed = 10.0
+wind_direction = Vector2(1, 0)
+
+[node name="wind" type="Node3D" parent="environmentals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 37.6168, -35.0103)
+
+[node name="CartoonWind" parent="environmentals/wind" instance=ExtResource("7_272bh")]
+
+[node name="BobManager" parent="." node_paths=PackedStringArray("anchor") instance=ExtResource("8_5vw27")]
+anchor = NodePath("../Helicopter")
+
+[node name="vfx_manager" type="Node" parent="."]
+script = ExtResource("9_kek77")

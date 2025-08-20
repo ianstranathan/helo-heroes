@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dt86b852tt4g3"]
+
+[ext_resource type="Script" uid="uid://cwe88i8rgq6k5" path="res://grabbable/grabbable.gd" id="1_5oy0n"]
+[ext_resource type="PackedScene" uid="uid://cbec0wq142mjs" path="res://levels/tetriminos/Z_block/z_block_skin.tscn" id="1_qxxo0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qxxo0"]
+size = Vector3(2, 1, 1)
+
+[node name="ZBlockGrabbable" type="RigidBody3D"]
+script = ExtResource("1_5oy0n")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_qxxo0")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.5, 0)
+shape = SubResource("BoxShape3D_qxxo0")
+
+[node name="s block" parent="." instance=ExtResource("1_qxxo0")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
