@@ -5,7 +5,7 @@ render_mode unshaded, cull_back;
 
 uniform float t: hint_range(0.0, 1.0, 0.01);
 uniform float _vertex_scale = 1.0;
-void vertex() 
+void vertex()
 {
 	VERTEX.xy *= _vertex_scale;
 	// Billboard Mode: Enabled
@@ -20,7 +20,7 @@ void vertex()
 //float ring(float domain, float _thickness, float inner_rad)
 //{
 	//float _outer_rad = inner_rad + _thickness;
-	//float mask = (1. -  smoothstep(_outer_rad, _outer_rad + 0.03, domain)) 
+	//float mask = (1. -  smoothstep(_outer_rad, _outer_rad + 0.03, domain))
 	             //* smoothstep(inner_rad, inner_rad + 0.03, domain);
 	//return mask;
 //}
@@ -49,7 +49,7 @@ float ring_sdf(vec2 p, float r)
 float ring(vec2 uv, float r, float thickness){
 	return 1. - smoothstep(thickness, thickness + 0.01, ring_sdf(uv, r));
 }
-void fragment() 
+void fragment()
 {
 	vec2 uv = 2. * UV - 1.;
 	float mask = ring(uv, EaseOutSine(t), 0.15);

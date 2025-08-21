@@ -30,10 +30,11 @@ var last_left_stick_x: float
 
 
 func _physics_process(delta: float) -> void:
-	var l_stick := Input.get_vector("l-left", "l-right", "l-down", "l-up")
-	if abs(l_stick.x) > turn_threshold:
-		last_left_stick_x = l_stick.x
-	var r_stick := Input.get_axis("r-up", "r-down")
+	#var l_stick := Input.get_vector("l-left", "l-right", "l-down", "l-up")
+	var l_stick = Input.get_axis("left", "right")
+	if abs(l_stick) > turn_threshold:
+		last_left_stick_x = l_stick
+	var r_stick := Input.get_axis("tilt-up", "tilt-down")
 	var transform_basis_quaternion = Quaternion(transform.basis)
 	var tilt_quat: Quaternion
 	var rot_quat: Quaternion
@@ -51,7 +52,7 @@ func _physics_process(delta: float) -> void:
 	# -- velocity proportional to tilt
 	# r_stick input in on [-1, 1] -> * 1/2 : [-0.5, 0.5] -> + 0.5 -> [0, 1]
 	var tilt_coeff = (0.5 * r_stick) + 0.5
-	var x_movement_coeff = l_stick.x * (tilt_coeff + 0.3)
+	var x_movement_coeff = l_stick * (tilt_coeff + 0.3)
 
 	# -- 
 	var target_vel = Vector3.ZERO
@@ -61,7 +62,7 @@ func _physics_process(delta: float) -> void:
 	# -- how to make velocity changes smooth?
 	# -- Option 1. spread force out over time OR
 	# -- Option 2. interpolate between velocities
-	if Input.is_action_just_pressed("a-btn") and $FlappyTimer.is_stopped():
+	if Input.is_action_just_pressed("flutter") and $FlappyTimer.is_stopped():
 		$FlappyTimer.start()
 		target_vel.y += 1000.0
 	
@@ -72,10 +73,14 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 	# -- Tether input
-	if Input.is_action_pressed("R2"):
+	if Input.is_action_pressed("lower-tether"):
 		tether_move_fn(tether_change_coefficient * delta)
-	elif Input.is_action_pressed("L2"):
+	elif Input.is_action_pressed("raise-tether"):
 		tether_move_fn(-tether_change_coefficient * delta)
+
+
+func input_fn():
+	pass
 
 
 func tether_move_fn(tether_change):
@@ -89,12 +94,6 @@ func should_turn_around(input_x: float) -> bool:
 	return tmp_vec3.dot(global_transform.basis.x) <= 0 if tmp_vec3 != Vector3.ZERO else false
 
 
-# -- the middle point between the pickup_bob and helicopter
-# -- for camera
-#func camera_target_pos():
-	#return global_position
-
-
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("x-btn"):
+	if event.is_action_pressed("drop-item"):
 		emit_signal("dropped_item")
