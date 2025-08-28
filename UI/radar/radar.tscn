@@ -1,14 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://mkcq10mrsaps"]
 
-[ext_resource type="Shader" uid="uid://bve7olb4ag0b4" path="res://UI/radar/radar.gdshader" id="1_l1c4d"]
+[ext_resource type="Shader" uid="uid://f6jsbcra0fvi" path="res://UI/fuel_and_radar.gdshader" id="1_25egj"]
 [ext_resource type="Texture2D" uid="uid://bhuedhiqh13dg" path="res://assets/icon.svg" id="2_sj6gg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xbxgl"]
-shader = ExtResource("1_l1c4d")
+shader = ExtResource("1_25egj")
 shader_parameter/awareness_radius = 0.0
-shader_parameter/ally_clicky_positions = PackedVector2Array(0, 0, 0, 0, 0, 0)
-shader_parameter/enemy_clicky_positions = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0)
 shader_parameter/angle = 0.0
+shader_parameter/progress = 0.4
 
 [node name="Radar" type="TextureRect"]
 material = SubResource("ShaderMaterial_xbxgl")

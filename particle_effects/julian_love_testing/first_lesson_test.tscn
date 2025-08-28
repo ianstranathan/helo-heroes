@@ -1,0 +1,84 @@
+[gd_scene load_steps=10 format=3 uid="uid://cbonh8xt4ffs3"]
+
+[ext_resource type="Texture2D" uid="uid://bju110x5sojgk" path="res://assets/particle_masks/BasicParticle.png" id="2_hpqcd"]
+
+[sub_resource type="Shader" id="Shader_htxt8"]
+code = "shader_type spatial;
+render_mode blend_mix, unshaded, cull_back;
+//depth_draw_opaque
+
+float hash_vec2(vec2 p){
+	return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453);
+}
+
+void vertex() {
+	//UV = UV * uv1_scale.xy + uv1_offset.xy;
+
+	// Billboard Mode: Enabled
+	//MODELVIEW_MATRIX = VIEW_MATRIX * mat4(
+			//MAIN_CAM_INV_VIEW_MATRIX[0],
+			//MAIN_CAM_INV_VIEW_MATRIX[1],
+			//MAIN_CAM_INV_VIEW_MATRIX[2],
+			//MODEL_MATRIX[3]);
+	//MODELVIEW_NORMAL_MATRIX = mat3(MODELVIEW_MATRIX);
+}
+
+uniform sampler2D noise_tex_1;
+uniform sampler2D mask_tex;
+uniform float multi: hint_range(0.0, 1.0, 0.1) = 1.0;
+
+void fragment() {
+	float seed = (COLOR.r + COLOR.g + COLOR.b) / 3.0;
+	// randomized scrollspeed per particle
+	float scroll_speed = 0.1 * TIME + hash_vec2(vec2(seed));
+	// randomized UV offset   per particle
+	vec2 offset_uv = multi * UV - vec2(0., hash_vec2(vec2(seed * seed)));
+	// -- 
+	vec2 scroll = vec2(0., scroll_speed);
+	//
+	vec4 noise_tex_1_sample_1 = texture(noise_tex_1,       UV - 0.1 * TIME);
+	vec4 noise_tex_1_sample_2 = texture(noise_tex_1, 0.5 * UV );
+	vec4 noise_tex_1_sample_3 = texture(noise_tex_1, 2.  * UV);
+	float prod = 2. * noise_tex_1_sample_3.r * noise_tex_1_sample_2.r * noise_tex_1_sample_1.r;
+	//
+	vec4 mask_sample = texture(mask_tex, UV);
+	//
+	ALBEDO = vec3(seed, 0., 0.);
+	ALPHA = 1.; //mask_sample.a * prod;
+}
+"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_htxt8"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_plcjw"]
+seamless = true
+noise = SubResource("FastNoiseLite_htxt8")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_plcjw"]
+render_priority = 0
+shader = SubResource("Shader_htxt8")
+shader_parameter/noise_tex_1 = SubResource("NoiseTexture2D_plcjw")
+shader_parameter/mask_tex = ExtResource("2_hpqcd")
+shader_parameter/multi = 1.0
+
+[sub_resource type="Gradient" id="Gradient_plcjw"]
+offsets = PackedFloat32Array(0.00552486, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hpqcd"]
+gradient = SubResource("Gradient_plcjw")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_plcjw"]
+gravity = Vector3(0, 0, 0)
+color_ramp = SubResource("GradientTexture1D_hpqcd")
+hue_variation_min = 1.0
+hue_variation_max = 1.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_htxt8"]
+
+[node name="FirstLessonTest" type="GPUParticles3D"]
+material_override = SubResource("ShaderMaterial_plcjw")
+amount = 1
+randomness = 0.4
+process_material = SubResource("ParticleProcessMaterial_plcjw")
+draw_pass_1 = SubResource("QuadMesh_htxt8")

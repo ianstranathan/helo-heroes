@@ -13,3 +13,6 @@ func _ready() -> void:
 func pop_effect_fn(pos: Vector3) -> void:
 	pop_effect.global_position = pos
 	pop_effect.pop(pos)
+	
+func exhaust():
+	pass

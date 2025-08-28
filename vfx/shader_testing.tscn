@@ -1,0 +1,22 @@
+[gd_scene load_steps=7 format=3 uid="uid://b7uubw6a10o0s"]
+
+[ext_resource type="Shader" uid="uid://b0vmkkfakkqhy" path="res://vfx/julian_love/particle_test.gdshader" id="1_8u45e"]
+[ext_resource type="Texture2D" uid="uid://bhuedhiqh13dg" path="res://assets/icon.svg" id="2_8u45e"]
+[ext_resource type="Texture2D" uid="uid://bju110x5sojgk" path="res://assets/particle_masks/BasicParticle.png" id="2_th8q7"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8u45e"]
+fractal_lacunarity = 2.075
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_th8q7"]
+seamless = true
+noise = SubResource("FastNoiseLite_8u45e")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8u45e"]
+shader = ExtResource("1_8u45e")
+shader_parameter/n_tex1 = SubResource("NoiseTexture2D_th8q7")
+shader_parameter/mask_tex = ExtResource("2_th8q7")
+shader_parameter/multi = 0.3
+
+[node name="ShaderTesting" type="Sprite2D"]
+material = SubResource("ShaderMaterial_8u45e")
+texture = ExtResource("2_8u45e")

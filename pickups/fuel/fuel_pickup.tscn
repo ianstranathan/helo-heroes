@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://cee0kkk8tq13u"]
+
+[ext_resource type="Script" uid="uid://0n17ymw5pr6o" path="res://pickups/fuel/fuel_pickup.gd" id="1_ihlyq"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ojecw"]
+radius = 3.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ojecw"]
+shading_mode = 0
+albedo_color = Color(0.2, 1.5, 0.1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_rgxme"]
+radius = 3.0
+height = 6.0
+
+[node name="FuelPickup" type="Node3D"]
+script = ExtResource("1_ihlyq")
+fuel_amount = 10.0
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_ojecw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_ojecw")
+mesh = SubResource("SphereMesh_rgxme")

@@ -1,10 +1,14 @@
 extends CharacterBody3D
 
+class_name Helicopter
 # ==================================================
 # -- signals
 #signal tether_length_changed( _tether_length )
 signal dropped_item
 signal rotated( x_dir: float)
+signal fuel_changed( fuel_ratio: float)
+signal fuel_empty
+
 # ==================================================
 # -- movement
 @export_group("Movement")
@@ -27,6 +31,22 @@ var wind_velocity: Vector3 = Vector3.ZERO
 var is_turning: bool = false
 var last_left_stick_x: float
 @export var turn_threshold: float = 0.8
+
+var can_flutter = true
+func _ready() -> void:
+	$Fuel.fuel_changed.connect( func(fuel_ratio: float):
+		emit_signal("fuel_changed", fuel_ratio))
+	$Fuel.fuel_empty.connect( func():
+		can_flutter = false
+		$SmokeParticle1.emitting = true
+		# TODO:
+		# flutter is target_vel.y += 1000.0
+		# I'm just picking it as a ratio of that, they should both be exported,
+		# tweakable numbers
+		velocity += 85. * Vector3(randf(), randf(), 0.);
+		emit_signal("fuel_empty"))
+	$Fuel.refueled.connect( func():
+		can_flutter = true)
 
 
 func _physics_process(delta: float) -> void:
@@ -62,7 +82,8 @@ func _physics_process(delta: float) -> void:
 	# -- how to make velocity changes smooth?
 	# -- Option 1. spread force out over time OR
 	# -- Option 2. interpolate between velocities
-	if Input.is_action_just_pressed("flutter") and $FlappyTimer.is_stopped():
+	if (Input.is_action_just_pressed("flutter") and 
+		$FlappyTimer.is_stopped()               and can_flutter):
 		$FlappyTimer.start()
 		target_vel.y += 1000.0
 	
@@ -97,3 +118,6 @@ func should_turn_around(input_x: float) -> bool:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("drop-item"):
 		emit_signal("dropped_item")
+		
+func refuel( amount: float):
+	$Fuel.refuel( amount )

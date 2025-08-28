@@ -75,7 +75,8 @@ tilt-down={
 3d_physics/layer_1="level"
 3d_physics/layer_2="helicopter"
 3d_physics/layer_3="pickup bob"
-3d_physics/layer_4="pickups"
+3d_physics/layer_4="Grabbables"
+3d_physics/layer_6="ItemPickups"
 
 [physics]
 

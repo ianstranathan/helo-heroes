@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://coa1fluela5uf"]
+[gd_scene load_steps=5 format=3 uid="uid://coa1fluela5uf"]
 
 [ext_resource type="Script" uid="uid://be2wm1wtrees7" path="res://testing/test_scene.gd" id="1_gfo2m"]
+[ext_resource type="PackedScene" uid="uid://cee0kkk8tq13u" path="res://pickups/fuel/fuel_pickup.tscn" id="2_qd2h8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rc4ay"]
 albedo_color = Color(1, 0, 1, 1)
@@ -57,3 +58,20 @@ transform = Transform3D(0.0495853, 0.483817, -0.873763, -0.0274121, 0.875169, 0.
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_rc4ay")
+
+[node name="Node" type="Node" parent="."]
+
+[node name="FuelPickup" parent="Node" instance=ExtResource("2_qd2h8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 56, 0)
+
+[node name="FuelPickup2" parent="Node" instance=ExtResource("2_qd2h8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -98, 67, 0)
+
+[node name="FuelPickup3" parent="Node" instance=ExtResource("2_qd2h8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55, 82, 0)
+
+[node name="FuelPickup4" parent="Node" instance=ExtResource("2_qd2h8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56, 19, 0)
+
+[node name="FuelPickup5" parent="Node" instance=ExtResource("2_qd2h8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 104, 44, 0)

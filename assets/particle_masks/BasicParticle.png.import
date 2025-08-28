@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bju110x5sojgk"
-path.s3tc="res://.godot/imported/BasicParticle.png-6174ca729c7d2a867631462965220f2c.s3tc.ctex"
+path.s3tc="res://.godot/imported/BasicParticle.png-5eedca18ac84749376c8154533744634.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/particles/BasicParticle.png"
-dest_files=["res://.godot/imported/BasicParticle.png-6174ca729c7d2a867631462965220f2c.s3tc.ctex"]
+source_file="res://assets/particle_masks/BasicParticle.png"
+dest_files=["res://.godot/imported/BasicParticle.png-5eedca18ac84749376c8154533744634.s3tc.ctex"]
 
 [params]
 
@@ -27,7 +27,7 @@ mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
 process/fix_alpha_border=true
-process/premult_alpha=false
+process/premult_alpha=true
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
