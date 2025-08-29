@@ -100,9 +100,6 @@ func _physics_process(delta: float) -> void:
 		tether_move_fn(-tether_change_coefficient * delta)
 
 
-func input_fn():
-	pass
-
 
 func tether_move_fn(tether_change):
 	tether_length += tether_change

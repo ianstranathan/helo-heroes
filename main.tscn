@@ -30,6 +30,7 @@ tether_change_coefficient = 10.0
 
 [node name="TestScene" parent="." instance=ExtResource("4_1bvp3")]
 number_of_tetriminos = 100
+extents = Vector2(1000, 50)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

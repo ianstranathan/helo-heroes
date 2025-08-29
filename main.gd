@@ -5,13 +5,12 @@ extends Node
 @export var helicopter_and_camera_turn_threshold = 0.8
 
 func _ready():
-	# -- radar needs to know about helicopter
-	$CanvasLayer/Hud.helicopter_reference = $Helicopter
-	$Helicopter.wind_velocity = $environmentals.wind_velocity
+	# -- VARS
+	$CanvasLayer/Hud.helicopter_reference = $Helicopter # -- radar needs to know about helicopter
+	$Helicopter.wind_velocity             = $environmentals.wind_velocity
+	$BobManager.anchor                    = $Helicopter
 	
-	#$Camera3D.target_reference = $Helicopter
-	$BobManager.anchor = $Helicopter
-	
+	# -- SIGNALS
 	$Helicopter.dropped_item.connect( $BobManager.drop_item )
 	$Helicopter.fuel_changed.connect(func(fuel_ratio: float):
 		$CanvasLayer/Hud.set_fuel(fuel_ratio))

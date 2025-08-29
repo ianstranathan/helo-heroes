@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://d11mblyc4alr0"]
+
+[ext_resource type="PackedScene" uid="uid://nxwv1wkm8y" path="res://levels/logging level.blend" id="1_h0236"]
+
+[node name="logging level" instance=ExtResource("1_h0236")]
+
+[node name="rocks" parent="." index="0"]
+transform = Transform3D(-2.87164, 0.299849, -4.99604, -0.55399, 5.70553, 0.660855, 4.97428, 0.808532, -2.81061, 16.8181, -0.2445, -15.4814)
+
+[node name="ground" parent="." index="4"]
+transform = Transform3D(-7.6322e-07, 0, -14.0519, 0, 14.0519, 0, 17.4604, 0, -6.14228e-07, 12.5316, 0, 10.3057)
+
+[node name="3 log pile" parent="." index="6"]
+transform = Transform3D(0.0615129, 0, 0, 0, -6.12915e-08, 0.0615129, 0, -1.40219, -2.68882e-09, 13.75, 0.178453, -25.7002)
+
+[node name="single log" parent="." index="8"]
+transform = Transform3D(0.0615129, 0, 0, 0, -6.12915e-08, 0.0615129, 0, -1.40219, -2.68882e-09, 12.8202, 0.178453, -25.7002)
+
+[node name="5 log pile" parent="." index="9"]
+transform = Transform3D(0.0615129, 0, 0, 0, -6.12915e-08, 0.0615129, 0, -1.40219, -2.68882e-09, 13.0296, 0.178453, -27.5947)

@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://coa1fluela5uf"]
+[gd_scene load_steps=6 format=3 uid="uid://coa1fluela5uf"]
 
 [ext_resource type="Script" uid="uid://be2wm1wtrees7" path="res://testing/test_scene.gd" id="1_gfo2m"]
 [ext_resource type="PackedScene" uid="uid://cee0kkk8tq13u" path="res://pickups/fuel/fuel_pickup.tscn" id="2_qd2h8"]
+[ext_resource type="PackedScene" uid="uid://nxwv1wkm8y" path="res://levels/logging level.blend" id="3_xraay"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rc4ay"]
 albedo_color = Color(1, 0, 1, 1)
@@ -14,13 +15,6 @@ glow_enabled = true
 [node name="TestScene" type="Node3D"]
 script = ExtResource("1_gfo2m")
 
-[node name="Floor" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -40, 0)
-use_collision = true
-collision_layer = 3
-collision_mask = 15
-size = Vector3(300, 85, 250)
-
 [node name="CSGBox3D2" type="CSGBox3D" parent="."]
 transform = Transform3D(3.45288, 0, 0, 0, 1, 0, 0, 0, 8.75515, -119.775, 31.5373, 0)
 material_override = SubResource("StandardMaterial3D_rc4ay")
@@ -30,7 +24,7 @@ collision_mask = 15
 size = Vector3(1, 100, 1)
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="."]
-transform = Transform3D(3.45288, 0, 0, 0, 1, 0, 0, 0, 8.75515, 77.8405, 31.5373, 0)
+transform = Transform3D(3.45288, 0, 0, 0, 1, 0, 0, 0, 8.75515, 95.8405, 31.5373, 0)
 material_override = SubResource("StandardMaterial3D_rc4ay")
 use_collision = true
 collision_layer = 16
@@ -59,19 +53,28 @@ transform = Transform3D(0.0495853, 0.483817, -0.873763, -0.0274121, 0.875169, 0.
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_rc4ay")
 
-[node name="Node" type="Node" parent="."]
+[node name="FuelPickups" type="Node" parent="."]
 
-[node name="FuelPickup" parent="Node" instance=ExtResource("2_qd2h8")]
+[node name="FuelPickup" parent="FuelPickups" instance=ExtResource("2_qd2h8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 56, 0)
 
-[node name="FuelPickup2" parent="Node" instance=ExtResource("2_qd2h8")]
+[node name="FuelPickup2" parent="FuelPickups" instance=ExtResource("2_qd2h8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -98, 67, 0)
 
-[node name="FuelPickup3" parent="Node" instance=ExtResource("2_qd2h8")]
+[node name="FuelPickup3" parent="FuelPickups" instance=ExtResource("2_qd2h8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55, 82, 0)
 
-[node name="FuelPickup4" parent="Node" instance=ExtResource("2_qd2h8")]
+[node name="FuelPickup4" parent="FuelPickups" instance=ExtResource("2_qd2h8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56, 19, 0)
 
-[node name="FuelPickup5" parent="Node" instance=ExtResource("2_qd2h8")]
+[node name="FuelPickup5" parent="FuelPickups" instance=ExtResource("2_qd2h8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 104, 44, 0)
+
+[node name="logging level" parent="." instance=ExtResource("3_xraay")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, 70, 0, -150)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -50, 0)
+visible = false
+use_collision = true
+size = Vector3(1500, 100, 500)

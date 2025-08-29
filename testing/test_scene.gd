@@ -8,12 +8,11 @@ var z_block_scene: PackedScene = preload("res://levels/tetriminos/Z_block/Z_bloc
 @onready var tetrimo_scenes: Array[PackedScene] = [s_blocK_scene, o_blocK_scene, l_block_scene,
 												   t_block_scene, z_block_scene]
 @export var number_of_tetriminos: int
-
+@export var extents: Vector2
 signal object_grabbed( pos: Vector3)
 
 func _ready() -> void:
 	assert(number_of_tetriminos)
-	var extents = $Floor.size
 	# make a bunch of randomly sized tetriminos for demo purposes
 	for i in range( number_of_tetriminos):
 		# -- a random tetrimino
@@ -34,8 +33,8 @@ func _ready() -> void:
 			child_node.position *= s)
 		
 		# -- a random position in plane
-		tetrimino.global_position = 0.8 * Vector3(MyUtils.rng.randi_range(-extents.x, extents.x),
-										 MyUtils.rng.randi_range(20., 30), # -- arbitrary, from measuring util in editor
+		tetrimino.global_position = 0.8 * Vector3(MyUtils.rng.randi_range(-extents.x / 2.0, extents.x / 2.0), # to be around origin
+										 MyUtils.rng.randi_range(10., extents.y), # -- arbitrary, from measuring util in editor
 										 0. )
 		# -- a random rotation in plane
 		tetrimino.rotate_z(2 * PI * float(randi_range(0, 2)))
