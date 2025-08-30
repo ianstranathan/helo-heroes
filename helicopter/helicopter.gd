@@ -13,10 +13,13 @@ signal fuel_empty
 # -- movement
 @export_group("Movement")
 @export var max_speed_x: float = 40.0
-
+@export var accl_x: float      = 0.50
+@export var max_speed_y: float = 20.0
+@export var accl_y: float      = 12.5
+@export var tilt_angle         = PI / 6.0
 # ==================================================
 # -- tether
-@export var tether_change_coefficient: float
+@export var tether_change_rate: float
 @export var MAX_TETHER_LENGTH = 100.0
 @export var initial_tether_length = 20.0
 @onready var tether_length: float = initial_tether_length
@@ -32,34 +35,42 @@ var is_turning: bool = false
 var last_left_stick_x: float
 @export var turn_threshold: float = 0.8
 
-var can_flutter = true
+var has_fuel = true
 func _ready() -> void:
 	$Fuel.fuel_changed.connect( func(fuel_ratio: float):
 		emit_signal("fuel_changed", fuel_ratio))
 	$Fuel.fuel_empty.connect( func():
-		can_flutter = false
+		has_fuel = false
 		$SmokeParticle1.emitting = true
 		# TODO:
-		# flutter is target_vel.y += 1000.0
-		# I'm just picking it as a ratio of that, they should both be exported,
-		# tweakable numbers
-		velocity += 85. * Vector3(randf(), randf(), 0.);
 		emit_signal("fuel_empty"))
 	$Fuel.refueled.connect( func():
-		can_flutter = true)
+		has_fuel = true)
 
 
 func _physics_process(delta: float) -> void:
-	#var l_stick := Input.get_vector("l-left", "l-right", "l-down", "l-up")
-	var l_stick = Input.get_axis("left", "right")
-	if abs(l_stick) > turn_threshold:
-		last_left_stick_x = l_stick
-	var r_stick := Input.get_axis("tilt-up", "tilt-down")
+	# -- TODO
+	# -- Per Keith: the point of the game is PRECISE STICK CONTROLS
+	# --   l-stick: controls left, right, up, down motion
+	# --   r-stick: controls tether
+	# --   tilt will be an interpolation of max speed ( does the player think
+	# --   he's going as fast as possible
+	# --   This must consider the wind velocity. If the x-dir and the wind-dir
+	# --   agree, it's max speed + wind velocity, otherwise it's their difference
+	var l_stick_input : Vector2 = (Input.get_vector("left", "right", "down", "up")
+									if has_fuel
+									else Vector2.ZERO)
+	var r_stick_input : float   = Input.get_axis("lower-tether", "raise-tether")
+	
+	if abs(l_stick_input.x) > turn_threshold:
+		last_left_stick_x = l_stick_input.x
+	
 	var transform_basis_quaternion = Quaternion(transform.basis)
 	var tilt_quat: Quaternion
 	var rot_quat: Quaternion
 	
-	tilt_quat = Quaternion(basis_reference.rotated(Vector3.FORWARD, sign(r_stick) * PI / 8))
+	# -- tilt angle is a function of speed
+	tilt_quat = Quaternion(basis_reference.rotated(Vector3.FORWARD, sign(l_stick_input.x ) * tilt_fn()))
 	
 	if last_left_stick_x:
 		var angle = 0.0 if last_left_stick_x > 0.0 else PI
@@ -67,39 +78,39 @@ func _physics_process(delta: float) -> void:
 		emit_signal("rotated", -1.0 if angle == PI else 1.0) # -- for camera
 
 	var ret_quat: Quaternion = transform_basis_quaternion.slerp(rot_quat * tilt_quat, delta)
+	#var ret_quat: Quaternion = transform_basis_quaternion.slerp(rot_quat, delta)
 	transform.basis = Basis(ret_quat).orthonormalized()
-
-	# -- velocity proportional to tilt
-	# r_stick input in on [-1, 1] -> * 1/2 : [-0.5, 0.5] -> + 0.5 -> [0, 1]
-	var tilt_coeff = (0.5 * r_stick) + 0.5
-	var x_movement_coeff = l_stick * (tilt_coeff + 0.3)
-
-	# -- 
-	var target_vel = Vector3.ZERO
-	target_vel.x = x_movement_coeff * max_speed_x
-	target_vel.y += get_gravity().y
-	target_vel += wind_velocity
-	# -- how to make velocity changes smooth?
-	# -- Option 1. spread force out over time OR
-	# -- Option 2. interpolate between velocities
-	if (Input.is_action_just_pressed("flutter") and 
-		$FlappyTimer.is_stopped()               and can_flutter):
-		$FlappyTimer.start()
-		target_vel.y += 1000.0
 	
-	velocity = Vector3(lerp(velocity.x, target_vel.x, 3. * delta),
-					   lerp(velocity.y, target_vel.y, delta),
-					   0.)
+	# -- vector sum of movement
+	var target_vel: Vector2 = Vector2(max_speed_x * l_stick_input.x,
+									  max_speed_y * l_stick_input.y)
 	
+	# -- how much acceleration contributes to velocity per frame
+	# -- player has to slide / drift to stop
+	# -- => accl if abs relative velocity.x is negative
+	velocity.x = move_toward(velocity.x, target_vel.x, drifting_vel_fn(target_vel.x, velocity.x))
+	if l_stick_input.y != 0:
+		velocity.y = move_toward(velocity.y, target_vel.y, accl_y)
+	
+	velocity.y += delta * get_gravity().y
+	# -- collision response here
 	move_and_slide()
-
+	
 	# -- Tether input
-	if Input.is_action_pressed("lower-tether"):
-		tether_move_fn(tether_change_coefficient * delta)
-	elif Input.is_action_pressed("raise-tether"):
-		tether_move_fn(-tether_change_coefficient * delta)
+	tether_move_fn(r_stick_input * tether_change_rate * delta)
+
+func tilt_fn() -> float:
+	# This must consider the wind velocity. If the x-dir and the wind-dir
+	# agree, it's max speed + wind velocity, otherwise it's their difference
+	var _max = (max_speed_x + wind_velocity.x 
+				if max_speed_x * wind_velocity.x > 0.0 
+				else max_speed_x - wind_velocity.x)
+	var t = velocity.x / _max
+	return t * tilt_angle # this is just (1. - x)a + xb
 
 
+func drifting_vel_fn(target_vel_x: float, last_vel_x: float) -> float:
+	return accl_x if abs(target_vel_x) - abs(last_vel_x) > 0 else accl_x / 5.0 
 
 func tether_move_fn(tether_change):
 	tether_length += tether_change

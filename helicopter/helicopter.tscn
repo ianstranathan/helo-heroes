@@ -30,9 +30,10 @@ one_shot = true
 
 [node name="Fuel" type="Node" parent="."]
 script = ExtResource("3_vqlxw")
+MAX_FUEL_SECONDS = 45.0
 
 [node name="Timer" type="Timer" parent="Fuel"]
-wait_time = 15.0
+wait_time = 45.0
 one_shot = true
 autostart = true
 

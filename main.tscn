@@ -26,7 +26,6 @@ one_shot = true
 [node name="Helicopter" parent="." instance=ExtResource("2_0xm2m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.9822, 43.7456, -1.68286)
 collision_mask = 17
-tether_change_coefficient = 10.0
 
 [node name="TestScene" parent="." instance=ExtResource("4_1bvp3")]
 number_of_tetriminos = 100
