@@ -12,11 +12,10 @@ signal fuel_empty
 # ==================================================
 # -- movement
 @export_group("Movement")
-@export var max_speed_x: float = 40.0
-@export var accl_x: float      = 0.50
-@export var max_speed_y: float = 20.0
-@export var accl_y: float      = 12.5
+@export var max_speed_x: float = 220.0
+@export var max_speed_y: float = 25.0
 @export var tilt_angle         = PI / 6.0
+@export var drag_coefficient   = 0.05
 # ==================================================
 # -- tether
 @export var tether_change_rate: float
@@ -67,10 +66,10 @@ func _physics_process(delta: float) -> void:
 	
 	var transform_basis_quaternion = Quaternion(transform.basis)
 	var tilt_quat: Quaternion
-	var rot_quat: Quaternion
+	var rot_quat:  Quaternion
 	
 	# -- tilt angle is a function of speed
-	tilt_quat = Quaternion(basis_reference.rotated(Vector3.FORWARD, sign(l_stick_input.x ) * tilt_fn()))
+	tilt_quat = Quaternion(basis_reference.rotated(Vector3.FORWARD, tilt_interpolation(l_stick_input.x)))
 	
 	if last_left_stick_x:
 		var angle = 0.0 if last_left_stick_x > 0.0 else PI
@@ -81,36 +80,28 @@ func _physics_process(delta: float) -> void:
 	#var ret_quat: Quaternion = transform_basis_quaternion.slerp(rot_quat, delta)
 	transform.basis = Basis(ret_quat).orthonormalized()
 	
-	# -- vector sum of movement
-	var target_vel: Vector2 = Vector2(max_speed_x * l_stick_input.x,
-									  max_speed_y * l_stick_input.y)
-	
-	# -- how much acceleration contributes to velocity per frame
-	# -- player has to slide / drift to stop
-	# -- => accl if abs relative velocity.x is negative
-	velocity.x = move_toward(velocity.x, target_vel.x, drifting_vel_fn(target_vel.x, velocity.x))
-	if l_stick_input.y != 0:
-		velocity.y = move_toward(velocity.y, target_vel.y, accl_y)
-	
-	velocity.y += delta * get_gravity().y
-	# -- collision response here
-	move_and_slide()
-	
+	# --
+	velocity_resolution(delta, l_stick_input)
 	# -- Tether input
 	tether_move_fn(r_stick_input * tether_change_rate * delta)
 
-func tilt_fn() -> float:
-	# This must consider the wind velocity. If the x-dir and the wind-dir
-	# agree, it's max speed + wind velocity, otherwise it's their difference
-	var _max = (max_speed_x + wind_velocity.x 
-				if max_speed_x * wind_velocity.x > 0.0 
-				else max_speed_x - wind_velocity.x)
-	var t = velocity.x / _max
+func rotation_resolution() -> void:
+	pass
+
+func velocity_resolution(delta: float, l_stick_input: Vector2) -> void:
+	# the speed has to approach a limit
+	velocity += delta * (Vector3(max_speed_x * l_stick_input.x + wind_velocity.x,
+								max_speed_y * l_stick_input.y + get_gravity().y,
+								0.0) + 
+						-velocity.normalized() * drag_coefficient * velocity.length_squared())
+	move_and_slide()
+	
+
+func tilt_interpolation(stick_input: float) -> float:
+	var t = abs(velocity.x / (max_speed_x + wind_velocity.x))
+	t = clamp(2. * t, 0., 1.) if stick_input != 0.0 else 0.0
 	return t * tilt_angle # this is just (1. - x)a + xb
 
-
-func drifting_vel_fn(target_vel_x: float, last_vel_x: float) -> float:
-	return accl_x if abs(target_vel_x) - abs(last_vel_x) > 0 else accl_x / 5.0 
 
 func tether_move_fn(tether_change):
 	tether_length += tether_change
