@@ -59,7 +59,7 @@ func _physics_process(delta: float) -> void:
 	var l_stick_input : Vector2 = (Input.get_vector("left", "right", "down", "up")
 									if has_fuel
 									else Vector2.ZERO)
-	var r_stick_input : float   = Input.get_axis("lower-tether", "raise-tether")
+	var r_stick_input : float   = Input.get_axis("raise-tether", "lower-tether")
 	
 	if abs(l_stick_input.x) > turn_threshold:
 		last_left_stick_x = l_stick_input.x
@@ -106,7 +106,6 @@ func tilt_interpolation(stick_input: float) -> float:
 func tether_move_fn(tether_change):
 	tether_length += tether_change
 	tether_length =  clamp(tether_length, 0., MAX_TETHER_LENGTH)
-	#emit_signal("tether_length_changed", tether_length)
 
 
 func should_turn_around(input_x: float) -> bool:
