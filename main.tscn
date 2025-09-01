@@ -23,14 +23,15 @@ shake_amplitude = 2.5
 wait_time = 0.2
 one_shot = true
 
-[node name="Helicopter" parent="." instance=ExtResource("2_0xm2m")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.9822, 67.3586, -1.68286)
-collision_mask = 17
-tether_change_rate = 5.0
-
 [node name="TestScene" parent="." instance=ExtResource("4_1bvp3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 69.7175)
 number_of_tetriminos = 100
-extents = Vector2(1000, 50)
+extents = Vector2(100, 40)
+
+[node name="Helicopter" parent="." instance=ExtResource("2_0xm2m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -177.666, 4.559, -0.0338364)
+collision_mask = 1
+tether_change_rate = 5.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

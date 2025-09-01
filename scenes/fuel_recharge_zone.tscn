@@ -1,0 +1,39 @@
+[gd_scene load_steps=8 format=3 uid="uid://dd3daln320w5c"]
+
+[ext_resource type="Shader" uid="uid://52i2dful18lr" path="res://testing/refuel_cylinder.gdshader" id="1_76b2h"]
+[ext_resource type="Script" uid="uid://fug15f01b3ig" path="res://scenes/fuel_recharge_zone.gd" id="1_w1a4x"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xraay"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_q3vq8"]
+seamless = true
+noise = SubResource("FastNoiseLite_xraay")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7dpxd"]
+render_priority = 0
+shader = ExtResource("1_76b2h")
+shader_parameter/noise = SubResource("NoiseTexture2D_q3vq8")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_qd2h8"]
+top_radius = 11.0
+bottom_radius = 11.0
+height = 20.0
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_xraay"]
+height = 20.0
+radius = 11.0
+
+[node name="Area3D" type="Area3D"]
+collision_mask = 2
+script = ExtResource("1_w1a4x")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+material_override = SubResource("ShaderMaterial_7dpxd")
+mesh = SubResource("CylinderMesh_qd2h8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+shape = SubResource("CylinderShape3D_xraay")

@@ -33,7 +33,8 @@ func _ready() -> void:
 			child_node.position *= s)
 		
 		# -- a random position in plane
-		tetrimino.global_position = 0.8 * Vector3(MyUtils.rng.randi_range(-extents.x / 2.0, extents.x / 2.0), # to be around origin
+		tetrimino.global_position = $TetriminoDropCenter.global_position + Vector3(
+										 MyUtils.rng.randi_range(-extents.x / 2.0, extents.x / 2.0), # to be around drop origin
 										 MyUtils.rng.randi_range(10., extents.y), # -- arbitrary, from measuring util in editor
 										 0. )
 		# -- a random rotation in plane
