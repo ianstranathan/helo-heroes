@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://d11mblyc4alr0"]
+[gd_scene load_steps=11 format=3 uid="uid://d11mblyc4alr0"]
 
 [ext_resource type="PackedScene" uid="uid://nxwv1wkm8y" path="res://levels/logging level.blend" id="1_h0236"]
 [ext_resource type="Shader" uid="uid://dve1d0v3j56rp" path="res://levels/logging_level_ground_splatmap.gdshader" id="2_6d1bx"]
 [ext_resource type="Texture2D" uid="uid://c040jlxon6ga8" path="res://assets/textures/Grass005_2K-JPG/Grass005_2K-JPG_Color.jpg" id="3_yswac"]
 [ext_resource type="Texture2D" uid="uid://dfkiwiis1l8pq" path="res://assets/textures/Ground086_2K-JPG/Ground086_2K-JPG_Color.jpg" id="4_ij28t"]
 [ext_resource type="Texture2D" uid="uid://dfdb5u753wm2e" path="res://assets/textures/Rocks011_2K-JPG/Rocks011_2K-JPG_Color.jpg" id="5_oqler"]
+[ext_resource type="PackedScene" uid="uid://dvftqvi6r71t7" path="res://tree_imposter/tree_imposter.tscn" id="6_ij28t"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_6d1bx"]
 
@@ -30,6 +31,9 @@ size = Vector2(40, 125)
 [node name="rocks" parent="." index="0"]
 transform = Transform3D(-2.87164, 0.299849, -4.99604, -0.55399, 5.70553, 0.660855, 4.97428, 0.808532, -2.81061, 16.8181, -0.2445, -15.4814)
 
+[node name="trees" parent="." index="1"]
+visible = false
+
 [node name="ground" parent="." index="4"]
 transform = Transform3D(-7.6322e-07, 0, -14.0519, 0, 14.0519, 0, 17.4604, 0, -6.14228e-07, 12.5316, 0, 10.3057)
 visible = false
@@ -47,3 +51,197 @@ transform = Transform3D(0.0615129, 0, 0, 0, -6.12915e-08, 0.0615129, 0, -1.40219
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 10, 0, 8)
 material_override = SubResource("ShaderMaterial_h0236")
 mesh = SubResource("QuadMesh_yswac")
+
+[node name="TreeImposters" type="Node3D" parent="." index="11"]
+
+[node name="TreeImposter" parent="TreeImposters" index="0" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 15.2176, 2.30863, -0.416691)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter20" parent="TreeImposters" index="1" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 7.57924, 2.30863, -1.26754)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter21" parent="TreeImposters" index="2" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 11.446, 2.30863, -3.57268)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter22" parent="TreeImposters" index="3" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 17.7579, 2.30863, -4.8997)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter23" parent="TreeImposters" index="4" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 8.05006, 2.30863, -6.72981)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter24" parent="TreeImposters" index="5" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 14.7789, 2.30863, -7.56482)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter25" parent="TreeImposters" index="6" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 18.27, 2.30863, -8.85365)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter26" parent="TreeImposters" index="7" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 9.08119, 2.30863, -10.7749)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter27" parent="TreeImposters" index="8" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 14.4958, 2.30863, -11.6148)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter28" parent="TreeImposters" index="9" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 12.8768, 2.30863, -14.4967)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter29" parent="TreeImposters" index="10" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 8.94147, 2.30863, -14.4922)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter30" parent="TreeImposters" index="11" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 17.3066, 2.30863, -17.505)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter31" parent="TreeImposters" index="12" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 12.3645, 2.30863, -19.6537)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter32" parent="TreeImposters" index="13" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 6.23671, 2.30863, -19.6586)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter33" parent="TreeImposters" index="14" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 10.1244, 2.30863, -28.2134)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter34" parent="TreeImposters" index="15" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 6.20632, 2.30863, -25.43)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter35" parent="TreeImposters" index="16" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 17.3066, 2.30863, -34.7411)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter36" parent="TreeImposters" index="17" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 12.3242, 2.30863, -31.9379)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter37" parent="TreeImposters" index="18" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 6.21636, 2.30863, -30.5256)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter38" parent="TreeImposters" index="19" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 8.5503, 2.30863, -35.6017)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter39" parent="TreeImposters" index="20" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 6.21636, 2.30863, -40.4914)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter40" parent="TreeImposters" index="21" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 10.418, 2.30863, -39.756)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter41" parent="TreeImposters" index="22" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 17.3469, 2.30863, -34.7679)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter42" parent="TreeImposters" index="23" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 22.6639, 2.30863, -35.6872)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter43" parent="TreeImposters" index="24" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 19.2223, 2.30863, -38.0511)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter44" parent="TreeImposters" index="25" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 21.0971, 2.30863, -42.8245)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter45" parent="TreeImposters" index="26" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 24.1783, 2.30863, -39.8258)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter46" parent="TreeImposters" index="27" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 14.9452, 2.30863, -42.8245)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter47" parent="TreeImposters" index="28" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 9.0349, 2.30863, -44.9587)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter48" parent="TreeImposters" index="29" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 10.2165, 2.30863, -22.3661)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter2" parent="TreeImposters" index="30" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 9.65424, 2.30863, 2.90308)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter3" parent="TreeImposters" index="31" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 18.2622, 2.30863, 3.88671)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter4" parent="TreeImposters" index="32" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-1.31134e-07, 0, 3, 0, 3, 0, -3, 0, -1.31134e-07, 13.6059, 1.53381, 6.08541)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter5" parent="TreeImposters" index="33" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-1.31134e-07, 0, 3, 0, 3, 0, -3, 0, -1.31134e-07, 17.4976, 2.30863, 7.8119)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter6" parent="TreeImposters" index="34" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 12.1708, 2.30863, 9.58091)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter7" parent="TreeImposters" index="35" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 7.23377, 2.30863, 10.7865)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter8" parent="TreeImposters" index="36" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 18.4618, 2.30863, 13.3742)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter9" parent="TreeImposters" index="37" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 11.1254, 2.30863, 15.6503)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter10" parent="TreeImposters" index="38" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 14.9919, 2.30863, 17.0209)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter11" parent="TreeImposters" index="39" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 12.3521, 2.30863, 18.6117)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter12" parent="TreeImposters" index="40" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 19.7616, 2.30863, 20.598)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter13" parent="TreeImposters" index="41" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 8.41833, 2.30863, 22.8527)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter14" parent="TreeImposters" index="42" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 15.149, 2.30863, 24.4183)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter15" parent="TreeImposters" index="43" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 9.73764, 2.30863, 26.1554)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter16" parent="TreeImposters" index="44" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 18.6221, 2.30863, 26.8821)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter17" parent="TreeImposters" index="45" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 13.6966, 2.30863, 29.9971)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter18" parent="TreeImposters" index="46" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 19.8448, 2.30863, 31.8181)
+skeleton = NodePath("../..")
+
+[node name="TreeImposter19" parent="TreeImposters" index="47" instance=ExtResource("6_ij28t")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 8.39421, 2.30863, 33.7748)
+skeleton = NodePath("../..")

@@ -1,25 +1,30 @@
 extends Camera3D
 
-@export var playing_plane_distance = 32.0
-@export var vertical_distance = 9.0
+#@export var playing_plane_distance = 64.0
+#@export var vertical_distance = 9.0
+
 @export var look_offset_dist = 160.0
 @export var target_reference: CharacterBody3D
+
+var initial_offset: Vector3
 var target_offset: Vector3 = Vector3.ZERO
 
 
 func _ready() -> void:
 	assert(target_reference)
+	initial_offset = global_position - target_reference.global_position
 	assert(target_reference.turn_threshold)
 	# -- callback function from when helicopter turns
 	target_reference.rotated.connect( func( x_dir: float):
-		target_offset = look_offset_dist * Vector3.RIGHT * -1.0)
+		#target_offset = look_offset_dist * Vector3.RIGHT * -1.0)
+		target_offset = look_offset_dist * target_reference.basis.x)
 
 	assert($ShakeTimer)
 
 func _physics_process(delta: float) -> void:
-	global_position = (target_reference.global_position + 
-					   Vector3.UP * vertical_distance   +
-					   playing_plane_distance * Vector3.BACK)
+	global_position = (target_reference.global_position + initial_offset)
+					   #Vector3.UP * vertical_distance   +
+					   #playing_plane_distance * Vector3.BACK)
 	global_position = lerp(global_position, global_position + target_offset, delta)
 
 	if !$ShakeTimer.is_stopped():

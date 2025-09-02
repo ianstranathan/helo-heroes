@@ -14,7 +14,12 @@
 script = ExtResource("1_h2yge")
 
 [node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("target_reference")]
-transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 28.2436, 26.7166)
+transform = Transform3D(1, 0, 0, 0, 0.866104, 0.499864, 0, -0.499864, 0.866104, -174.374, 32.4383, 70.4169)
+keep_aspect = 0
+projection = 1
+current = true
+size = 120.0
+near = 0.001
 script = ExtResource("1_ig7tw")
 target_reference = NodePath("../Helicopter")
 shake_amplitude = 2.5

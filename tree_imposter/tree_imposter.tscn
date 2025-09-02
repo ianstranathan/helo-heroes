@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3 uid="uid://dvftqvi6r71t7"]
+
+[ext_resource type="Shader" uid="uid://bbqcpbign1wuo" path="res://tree_imposter/tree_imposter.gdshader" id="1_xc3j0"]
+[ext_resource type="Texture2D" uid="uid://b7pra11u3iudd" path="res://tree_imposter/pine_tree.png" id="2_8qv0l"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8qv0l"]
+render_priority = 0
+shader = ExtResource("1_xc3j0")
+shader_parameter/tex = ExtResource("2_8qv0l")
+
+[sub_resource type="QuadMesh" id="QuadMesh_btcde"]
+
+[node name="TreeImposter" type="MeshInstance3D"]
+material_override = SubResource("ShaderMaterial_8qv0l")
+mesh = SubResource("QuadMesh_btcde")

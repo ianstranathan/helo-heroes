@@ -56,20 +56,23 @@ func _physics_process(delta: float) -> void:
 	# --   he's going as fast as possible
 	# --   This must consider the wind velocity. If the x-dir and the wind-dir
 	# --   agree, it's max speed + wind velocity, otherwise it's their difference
-	var l_stick_input : Vector2 = (Input.get_vector("left", "right", "down", "up")
+	#var l_stick_input : Vector2 = (Input.get_vector("left", "right", "down", "up")
+									#if has_fuel
+									#else Vector2.ZERO)
+	var l_stick_input : float = (Input.get_axis("left", "right")
 									if has_fuel
-									else Vector2.ZERO)
-	var r_stick_input : float   = Input.get_axis("raise-tether", "lower-tether")
+									else 0.0)
+	var r_stick_input : float = Input.get_axis("down", "up")
 	
-	if abs(l_stick_input.x) > turn_threshold:
-		last_left_stick_x = l_stick_input.x
+	if abs(l_stick_input) > turn_threshold:
+		last_left_stick_x = l_stick_input
 	
 	var transform_basis_quaternion = Quaternion(transform.basis)
 	var tilt_quat: Quaternion
 	var rot_quat:  Quaternion
 	
 	# -- tilt angle is a function of speed
-	tilt_quat = Quaternion(basis_reference.rotated(Vector3.FORWARD, tilt_interpolation(l_stick_input.x)))
+	tilt_quat = Quaternion(basis_reference.rotated(Vector3.FORWARD, tilt_interpolation(l_stick_input)))
 	
 	if last_left_stick_x:
 		var angle = 0.0 if last_left_stick_x > 0.0 else PI
@@ -81,17 +84,21 @@ func _physics_process(delta: float) -> void:
 	transform.basis = Basis(ret_quat).orthonormalized()
 	
 	# --
-	velocity_resolution(delta, l_stick_input)
+	velocity_resolution(delta, l_stick_input, r_stick_input)
 	# -- Tether input
-	tether_move_fn(r_stick_input * tether_change_rate * delta)
-
+	#tether_move_fn(r_stick_input * tether_change_rate * delta)
+	if !is_zero_approx(global_position.z):
+		global_position.z = lerp(global_position.z, 0., delta)
+	
 func rotation_resolution() -> void:
+	# TODO
+	# tidy up rotation stuff and put it here
 	pass
 
-func velocity_resolution(delta: float, l_stick_input: Vector2) -> void:
+func velocity_resolution(delta: float, l_stick_input_x: float, r_stick_input_y: float) -> void:
 	# the speed has to approach a limit
-	velocity += delta * (Vector3(max_speed_x * l_stick_input.x + wind_velocity.x,
-								max_speed_y * l_stick_input.y + get_gravity().y,
+	velocity += delta * (Vector3(max_speed_x * l_stick_input_x + wind_velocity.x,
+								max_speed_y * r_stick_input_y + get_gravity().y,
 								0.0) + 
 						-velocity.normalized() * drag_coefficient * velocity.length_squared())
 	move_and_slide()
