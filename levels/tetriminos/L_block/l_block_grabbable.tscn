@@ -9,6 +9,8 @@ size = Vector3(1, 3, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_trmub"]
 
 [node name="LBlockGrabbable" type="RigidBody3D"]
+collision_layer = 40
+collision_mask = 37
 script = ExtResource("1_trmub")
 
 [node name="L-Block" parent="." instance=ExtResource("1_ixgu1")]

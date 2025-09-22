@@ -1,10 +1,11 @@
 [gd_scene load_steps=4 format=3 uid="uid://b7uubw6a10o0s"]
 
-[ext_resource type="Shader" uid="uid://cdswqd2u5a2dx" path="res://vfx/balancing_icon.gdshader" id="1_8u45e"]
+[ext_resource type="Shader" uid="uid://cc8q0twwxk02v" path="res://vfx/square_timer.gdshader" id="1_8u45e"]
 [ext_resource type="Texture2D" uid="uid://bhuedhiqh13dg" path="res://assets/icon.svg" id="2_8u45e"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8u45e"]
 shader = ExtResource("1_8u45e")
+shader_parameter/progress = 1.0
 
 [node name="ShaderTesting" type="Sprite2D"]
 material = SubResource("ShaderMaterial_8u45e")

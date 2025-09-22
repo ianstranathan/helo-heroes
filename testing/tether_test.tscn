@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://2babjkyvnbni"]
+
+[ext_resource type="Script" uid="uid://vxd3r8o0e7wy" path="res://testing/tether_test.gd" id="1_n52nv"]
+[ext_resource type="PackedScene" uid="uid://bmt6fgu5wtcd4" path="res://pickup_bob/tether_visual.tscn" id="2_xbw0x"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_wmq7y"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_n52nv"]
+
+[node name="TetherTest" type="Node3D" node_paths=PackedStringArray("the_bob", "the_tether_pt")]
+script = ExtResource("1_n52nv")
+the_bob = NodePath("TheBob")
+the_tether_pt = NodePath("TheTetherPoint")
+
+[node name="TheBob" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_wmq7y")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.43698, 8.249)
+
+[node name="TetherVisual" parent="." instance=ExtResource("2_xbw0x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.59577, 0)
+
+[node name="TheTetherPoint" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.8153, 0)
+mesh = SubResource("BoxMesh_n52nv")

@@ -35,8 +35,8 @@ extents = Vector2(100, 40)
 
 [node name="Helicopter" parent="." instance=ExtResource("2_0xm2m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -177.666, 4.559, -0.0338364)
-collision_mask = 1
 tether_change_rate = 5.0
+initial_tether_length = 2.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -55,6 +55,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 37.6168, -35.0103)
 
 [node name="BobManager" parent="." node_paths=PackedStringArray("anchor") instance=ExtResource("8_5vw27")]
 anchor = NodePath("../Helicopter")
+balancing_bounds = 20.0
+light_time = 8.0
+medium_time = 12.0
+heavy_time = 18.0
 
 [node name="vfx_manager" type="Node" parent="."]
 script = ExtResource("9_kek77")

@@ -8,6 +8,8 @@
 background_mode = 1
 background_color = Color(0.176419, 0.176419, 0.176419, 1)
 glow_enabled = true
+glow_intensity = 1.51
+glow_bloom = 0.06
 
 [node name="TestScene" type="Node3D"]
 script = ExtResource("1_gfo2m")
@@ -31,4 +33,4 @@ transform = Transform3D(-2.18557e-07, 0, -5, 0, 5, 0, 5, 0, -2.18557e-07, 110, 0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -180.199, 0, -69.961)
 
 [node name="TetriminoDropCenter" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 145.148, 20.1746, -69.8432)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.0448, 20.1746, -69.8432)

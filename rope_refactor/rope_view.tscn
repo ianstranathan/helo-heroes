@@ -1,0 +1,19 @@
+[gd_scene load_steps=6 format=3 uid="uid://cp0kli4134xei"]
+
+[ext_resource type="Shader" uid="uid://dxji31rwbytws" path="res://rope_refactor/rope_view.gdshader" id="1_qlp34"]
+[ext_resource type="Texture2D" uid="uid://dowylu8nosk18" path="res://assets/textures/fabrics_0066_1k_rbjytj/fabrics_0066_color_1k.jpg" id="2_dgteq"]
+[ext_resource type="Script" uid="uid://dawgfhl7if44n" path="res://rope_refactor/rope_view.gd" id="3_tee31"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dgteq"]
+render_priority = 0
+shader = ExtResource("1_qlp34")
+shader_parameter/rope_col_texture = ExtResource("2_dgteq")
+shader_parameter/len = 0.25
+
+[sub_resource type="QuadMesh" id="QuadMesh_tee31"]
+size = Vector2(4, 1)
+
+[node name="RopeView" type="MeshInstance3D"]
+material_override = SubResource("ShaderMaterial_dgteq")
+mesh = SubResource("QuadMesh_tee31")
+script = ExtResource("3_tee31")

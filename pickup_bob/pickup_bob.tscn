@@ -17,7 +17,7 @@ height = 2.0
 
 [node name="PickupBob" type="RigidBody3D"]
 collision_layer = 4
-collision_mask = 9
+collision_mask = 41
 mass = 10.0
 gravity_scale = 2.0
 script = ExtResource("1_ino5g")
@@ -37,5 +37,8 @@ transform = Transform3D(1.22843, 0, 0, 0, 1.22843, 0, 0, 0, 1.22843, 0, 0, 0)
 shape = SubResource("SphereShape3D_m77pn")
 
 [node name="PickupBuffer" type="Timer" parent="."]
-wait_time = 0.7
+wait_time = 1.5
 one_shot = true
+
+[node name="SnapBuffer" type="Timer" parent="."]
+wait_time = 0.5

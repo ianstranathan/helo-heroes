@@ -14,6 +14,7 @@ func _ready():
 	
 	# -- SIGNALS
 	$Helicopter.dropped_item.connect( $BobManager.drop_item )
+	$Helicopter.shot_tether.connect( $BobManager.shoot_down )
 	$Helicopter.fuel_changed.connect(func(fuel_ratio: float):
 		$CanvasLayer/Hud.set_fuel(fuel_ratio))
 	# connect $Helicopter.fuel_empty to monochromatic or sepia-toned to give game over

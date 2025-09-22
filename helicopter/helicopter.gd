@@ -3,11 +3,11 @@ extends CharacterBody3D
 class_name Helicopter
 # ==================================================
 # -- signals
-#signal tether_length_changed( _tether_length )
 signal dropped_item
 signal rotated( x_dir: float)
 signal fuel_changed( fuel_ratio: float)
 signal fuel_empty
+signal shot_tether( _shoot_speed )
 
 # ==================================================
 # -- movement
@@ -18,9 +18,11 @@ signal fuel_empty
 @export var drag_coefficient   = 0.05
 # ==================================================
 # -- tether
+@export_group("Tether")
+@export var shoot_claw_speed: float = 2.0
 @export var tether_change_rate: float
 @export var MAX_TETHER_LENGTH = 100.0
-@export var initial_tether_length = 20.0
+@export var initial_tether_length = 5.0
 @onready var tether_length: float = initial_tether_length
 
 # ==================================================
@@ -123,6 +125,23 @@ func should_turn_around(input_x: float) -> bool:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("drop-item"):
 		emit_signal("dropped_item")
-		
+	
+	elif event.is_action_pressed("shoot tether"):
+		shoot_tether()
+	elif event.is_action_pressed("retract tether"):
+		retract_tether()
+	
 func refuel( amount: float):
 	$Fuel.refuel( amount )
+
+
+func shoot_tether():
+	tether_length = MAX_TETHER_LENGTH
+	emit_signal("shot_tether", shoot_claw_speed)
+
+
+func retract_tether():
+	# -- NOTE
+	# -- I probably don't want this to be on the main scene tree, but whatever
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "tether_length", initial_tether_length, 1.).set_trans(Tween.TRANS_ELASTIC)

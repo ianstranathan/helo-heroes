@@ -11,6 +11,8 @@ var z_block_scene: PackedScene = preload("res://levels/tetriminos/Z_block/Z_bloc
 @export var extents: Vector2
 signal object_grabbed( pos: Vector3)
 
+# -- NOTE
+
 func _ready() -> void:
 	assert(number_of_tetriminos)
 	# make a bunch of randomly sized tetriminos for demo purposes
